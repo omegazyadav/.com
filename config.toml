@@ -1,0 +1,49 @@
+baseURL = 'https://omegazyadav.com/'
+languageCode = 'en-us'
+title = 'Yadav Lamichhane'
+theme = "hugo-blog-awesome"
+
+
+[menu]
+  [[menu.main]]
+    pageRef="/"
+    name = 'Home'
+    url = '/'
+    weight = 10
+  [[menu.main]]
+    pageRef="posts"
+    name = 'Posts'
+    url = '/posts/'
+    weight = 30
+  [[menu.main]]
+    pageRef="bio"
+    name = 'Bio'
+    url = '/bio/'
+    weight = 40
+
+[[params.socialIcons]]
+name = "github"
+url = "https://github.com/omegazyadav"
+
+[[params.socialIcons]]
+name = "twitter"
+url = "https://twitter.com/omegazyadav"
+
+[[params.socialIcons]]
+name = "linkedin"
+url = "https://linkedin.com/omegazyadav"
+
+[[params.socialIcons]]
+name = "mastodon"
+url = "https://mastodon.social/@omegazyadav"
+
+[[params.socialIcons]]
+name = "medium"
+url = "https://medium.com/omegazyadav"
+
+[[params.socialIcons]]
+name = "Rss"
+url = "index.xml"
+
+[params]
+goToTop = true
