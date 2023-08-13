@@ -3,6 +3,14 @@ languageCode = 'en-us'
 title = 'Yadav Lamichhane'
 theme = "hugo-blog-awesome"
 
+[params]
+  goToTop = true
+
+[params.author]
+  avatar = "img/yadav.jpg"
+  intro = "Yadav Lamichhane"
+  name = "Yadav Lamichhane"
+  description = "SRE Engineer"
 
 [menu]
   [[menu.main]]
@@ -45,11 +53,4 @@ url = "https://medium.com/omegazyadav"
 name = "Rss"
 url = "index.xml"
 
-[params]
-goToTop = true
 
-[params.author]
-avatar = "img/yadav.png"
-intro = "Yadav Lamichhane"
-name = "Yadav Lamichhane"
-description = "SRE Engineer"

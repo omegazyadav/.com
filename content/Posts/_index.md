@@ -1,3 +1,3 @@
 ---
-title: "Technical Writing"
+title: "Blog Posts"
 ---

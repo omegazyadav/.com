@@ -1,9 +1,11 @@
 ---
 title: "Multi-region Terraform State Files"
-date: "2021-09-09"
-author: "Yadav Lamichhane"
-keywords: "Terrafrom"
-summary: "Article on how to manage multi-region deployment of the services with terraform"
+date: 2021-09-09
+author: Yadav Lamichhane
+description: "Manage multi-region deployment of the services with terraform"
+math: true
+tags:
+- Linux
 ---
 ---
 
