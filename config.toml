@@ -49,7 +49,7 @@ url = "index.xml"
 goToTop = true
 
 [params.author]
-  avatar = "img/yadav.jpg"
-  intro = "Yadav Lamichhane"
-  name = "Yadav Lamichhane"
-  description = "SRE Engineer"
+avatar = "img/yadav.png"
+intro = "Yadav Lamichhane"
+name = "Yadav Lamichhane"
+description = "SRE Engineer"
