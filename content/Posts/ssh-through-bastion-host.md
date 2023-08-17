@@ -9,7 +9,7 @@ tags:
 
 # SSH into the private server through Bastion Host
 
-[Connecting private server with bastion host](https://i.imgur.com/1mZuxec.png)
+![Connecting private server with bastion host](https://i.imgur.com/1mZuxec.png)
 |:--:|
 | Connecting private server with bastion host |
 
