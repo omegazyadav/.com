@@ -1,6 +1,6 @@
 ---
 title: Yadav Lamichhane Biography.
-description: 'Biography of Yadav Lamichhane.'
+description: 'Biography of Yadav Lamichhane'
 date: '2023-08-13'
 author: Yadav Lamichhane
 ---
