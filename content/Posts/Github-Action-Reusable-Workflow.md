@@ -162,14 +162,3 @@ Here, DAY_OF_WEEK defined in gal-flow-central repo has default value as “Tuesd
 Here, the value for DAY_OF_WEEK has been overridden from “Tuesday” to “Saturday”.
 
 This is all about GitHub Actions Reusable Workflow, we have been using it for almost all the repositories for quite some time now. If you have any questions related to this, please feel free to drop comments on the post.
-
-Thank you.
-
-**References**
-
-[Reusing workflows - GitHub Docs](https://docs.github.com/en/actions/using-workflows/reusing-workflows)
-
-[GitHub - cloudhonk/ga-flow-central](https://github.com/cloudhonk/ga-flow-central)
-
-[*GitHub - cloudhonk/ga-flow-child*](https://github.com/cloudhonk/ga-flow-child)
-
