@@ -3,6 +3,8 @@ title: "Connecting to IRC"
 date: 2020-05-01
 author: Yadav Lamichhane
 description: "Reminder for Myself - Connecting to IRC"
+layout: default
+comments: true
 tags:
 - Linux
 ---
