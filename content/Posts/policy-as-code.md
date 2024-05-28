@@ -20,10 +20,16 @@ CloudFormation Guard (cfn-guard) is a tool developed by AWS to validate CloudFor
 
 You can install CloudFormation Guard using AWS CLI or download it from the [releases page](https://github.com/aws-cloudformation/cloudformation-guard/releases).
 
-### Using AWS CLI
+### Using CLI
 
+1. Open a terminal, and run the following command.
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/aws-cloudformation/cloudformation-guard/main/install-guard.sh | sh
 ```
-pip install cfn-guard
+
+2. Run the following command to set your PATH variable.
+```bash
+export PATH=~/.guard/bin:$PATH
 ```
 
 ### Downloading Binary
