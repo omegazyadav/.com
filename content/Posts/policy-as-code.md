@@ -1,13 +1,11 @@
 ---
-title: "SSH into the private server through Bastion Host"
+title: "Policy as Code: Cloudformation Guard"
 date: 2024-05-28
 author: Yadav Lamichhane
 description: "Policy as Code: Cloudformation Guard"
 tags:
 - Linux
 ---
-
-# Policy as Code: Cloudformation Guard
 
 CloudFormation Guard (cfn-guard) is a tool developed by AWS to validate CloudFormation templates against a set of predefined rules. It ensures that your infrastructure as code (IaC) complies with organizational policies, security requirements, and best practices before deployment.
 
@@ -122,7 +120,7 @@ PASS rules
 rules.guard/s3_buckets_allowed_sse_algorithm    PASS
 rules.guard/check_lifecycle_status              PASS
 rules.guard/check_lifecycle_expiration          PASS
----
+
 ```
 
 ## Conclusion
