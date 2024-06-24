@@ -14,9 +14,6 @@ I love to bring balance in my lifestyle with intellectual pursuits, regularly re
 
 My approach to life reflects my commitment to continuous learning and growth. Balancing my professional expertise with my personal interests, I strive to make a positive impact both in the tech world and in my community.
 
-[Download my resume](./img/resume.pdf")
-
 |               | |
 :---------------------------:|:-------------------------:
 {{< img "/img/yadav.jpg" >}} | {{< img "/img/cricket.jpg" >}}
-
