@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Yadav Lamichhane</title>
+    <link>http://localhost:1313/tags/linux/</link>
+    <description>Recent content in Linux on Yadav Lamichhane</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Policy as Code: Cloudformation Guard</title>
+      <link>http://localhost:1313/posts/policy-as-code/</link>
+      <pubDate>Tue, 28 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/policy-as-code/</guid>
+      
+      <description>CloudFormation Guard (cfn-guard) is a tool developed by AWS to validate CloudFormation templates against a set of predefined rules. It ensures that your infrastructure as code (IaC) complies with organizational policies, security requirements, and best practices before deployment.
+Key Features Policy-as-Code: Define reusable and version-controlled rules. Validation: Check CloudFormation templates against these rules. Compliance: Enforce security, cost management, and operational guidelines. Integration: Seamlessly integrates with CI/CD pipelines for automated checks. Installing CloudFormation Guard You can install CloudFormation Guard using AWS CLI or download it from the releases page.</description>
+      
+    </item>
+    
+    <item>
+      <title>Github Action Reusable Workflows</title>
+      <link>http://localhost:1313/posts/github-action-reusable-workflow/</link>
+      <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/github-action-reusable-workflow/</guid>
+      
+      <description>GitHub Reusable workflows In this blog post, we will be exploring the Github Reusable workflows and how we can leverage them. The primary purpose of reusing workflows is to avoid code duplication when we have similar repositories with similar workflows. This makes workflows easier to maintain and allows you to create new workflows more quickly by building on the work of others, just as you do with actions. Workflow reuse also promotes best practices by helping you to use workflows that are well-designed, have already been tested, and have been proven to be effective.</description>
+      
+    </item>
+    
+    <item>
+      <title>Multi-region Terraform State Files</title>
+      <link>http://localhost:1313/posts/terraform-state-file-management/</link>
+      <pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/terraform-state-file-management/</guid>
+      
+      <description>On this blog post I will be discussing about the management of multi-region terraform state files in AWS Cloud which is desired approach for the design of fault tolerant infrastructure architecture.
+Backend Configuration By default terraform manages the state file named terraform.tfstate on your local directory where the terraform resource files are present. Same state files can be stored remotely and considered as a good approach if we are working in a team and managing state files through CI/CD pipelines.</description>
+      
+    </item>
+    
+    <item>
+      <title>SSH into the private server through Bastion Host</title>
+      <link>http://localhost:1313/posts/ssh-through-bastion-host/</link>
+      <pubDate>Sun, 21 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/ssh-through-bastion-host/</guid>
+      
+      <description>SSH into the private server through Bastion Host Connecting private server with bastion host A bastion host is a publicly facing server that acts as an entry-point to the system which is protected from the high-end firewall or located in a private server. These servers can only be accessible from the bastion hosts so this would reduce the attack surface area from the outside world.
+In this post, I will be explaining ways to ssh into the private server i.</description>
+      
+    </item>
+    
+    <item>
+      <title>Record Terminal Session with asciinema</title>
+      <link>http://localhost:1313/posts/record-terminal-session-with-asciinema/</link>
+      <pubDate>Fri, 17 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/record-terminal-session-with-asciinema/</guid>
+      
+      <description>ASCIINEMA ASCIINEMA is a terminal session recorder that captures all the input and output that is being processed by the terminal. It is a lightweight text-based terminal recorder in which you can copy the terminal text and paste it elsewhere. asciinema lets you easily record terminal sessions and replay them in a terminal as well as in a web browser.
+The installation procedure and usage are straight forward which won’t be difficult to follow along.</description>
+      
+    </item>
+    
+    <item>
+      <title>Connecting to IRC</title>
+      <link>http://localhost:1313/posts/connecting-to-irc/</link>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/connecting-to-irc/</guid>
+      
+      <description>Internet Relay Chat 1. What is it? Internet Relay Chat abbreviated as IRC which is just another application layer protocol like FTP, SMTP, DHCP, etc. It is mainly used for communicating in the network in the form of text messages. Architecturally IRC is a client/server model which consists of IRC server and IRC clients. IRC server accepts and relays messages to the users who are connected via IRC clients.
+There are numerous IRC clients available on the internet which we will be describing shortly.</description>
+      
+    </item>
+    
+  </channel>
+</rss>
