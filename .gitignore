@@ -1,0 +1,30 @@
+# Hugo build output
+/public/
+/resources/_gen/
+
+# Local development caches
+/.hugo_build.lock
+/.hugo_cache/
+
+# OS-generated files
+.DS_Store
+
+# Node (only if you use npm for SCSS/JS tooling)
+node_modules/
+package-lock.json
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+
+# Log files
+*.log
+
+# Hugo Modules
+.hugo_mod_cache/
+
+# Backup files
+*.bak
+*~
+
