@@ -29,10 +29,6 @@ theme = "hugo-blog-awesome"
     url = '/bio/'
     weight = 40
 
-[services]
-  [services.disqus]
-    shortname = 'omegazyadav-com'
-
 [[params.socialIcons]]
 name = "github"
 url = "https://github.com/omegazyadav"
