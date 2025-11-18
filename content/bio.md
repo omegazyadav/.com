@@ -1,14 +1,14 @@
 ---
-title: Yadav Lamichhane Biography.
+title: "Yadav Lamichhane"
 description: "Biography of Yadav Lamichhane"
 date: "2023-08-13"
-author: Yadav Lamichhane
+author: "Yadav Lamichhane"
 ---
 
-I'm a Computer Engineer and currently working as a Sr. Site Reliability Engineer at Cloudfactory.
-I'm passionate about Linux, container runtimes, and kernel internals, and I enjoy exploring and contributing to open-source projects.
+{{< img "/img/yadav.jpg" "180px" >}}
 
-Outside of work, I love cycling, working out, playing cricket, reading, and writing blogs.
-I'm also one of the organizing members of the DevOps Kathmandu community.
+Hi! I'm **Yadav Lamichhane**, a **Senior Site Reliability Engineer at Cloudfactory**.  
+I specialize in **Linux systems, container runtimes, and kernel internals**, and I love exploring and contributing to open-source projects.
 
-{{< img "/img/yadav.jpg" >}}
+Outside of work, you'll usually find me **cycling, working out, playing cricket, reading**, or **writing blogs**.  
+I'm also one of the organizing members of the **DevOps Kathmandu** community.
