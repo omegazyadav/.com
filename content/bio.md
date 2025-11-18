@@ -11,4 +11,4 @@ Hi! I'm **Yadav Lamichhane**, a **Senior Site Reliability Engineer at Cloudfacto
 I specialize in **Linux systems, container runtimes, and kernel internals**, and I love exploring and contributing to open-source projects.
 
 Outside of work, you'll usually find me **cycling, working out, playing cricket, reading**, or **writing blogs**.  
-I'm also one of the organizing members of the **DevOps Kathmandu** community.
+I'm also one of the organizing members of the [DevOps Kathmandu](https://www.linkedin.com/company/devops-kathmandu) community.
