@@ -1,5 +1,5 @@
 ---
-title: "Scaling with Karpenter"
+title: "Scaling K8s Nodes with Karpenter"
 date: 2025-06-25
 author: Yadav Lamichhane
 description: "Learn how to scale your Kubernetes clusters efficiently using Karpenter."
@@ -7,6 +7,7 @@ layout: default
 comments: true
 tags:
   - Linux
+  - k8s
 ---
 
 ![Karpenter](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*TWsqae9XH6vBN1szJKS4iw.png)
