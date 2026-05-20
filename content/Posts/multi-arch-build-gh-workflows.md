@@ -7,7 +7,7 @@ tags:
   - gh
 ---
 
-# Building Multi-Arch Docker Images for ARM and AMD64 with GitHub Actions and AWS ECR
+# Building Multi-Arch Docker Images for ARM and AMD64 with GitHub Actions
 
 Our AI platform runs background jobs across a mix of architectures — AMD64 for traditional cloud instances and ARM64 for AWS Graviton-based nodes. Rather than maintaining separate pipelines or Dockerfiles per architecture, we built a single GitHub Actions workflow that automatically builds, pushes, and merges multi-platform Docker images into one unified manifest.
 
