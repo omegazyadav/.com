@@ -1,6 +1,6 @@
 ---
 title: "Multi-Arch Build with GitHub Workflows"
-date: 2025-12-27
+date: 2026-05-20
 author: Yadav Lamichhane
 description: "Setup GitHub Actions workflow for building and pushing multi-architecture Docker images"
 tags:
