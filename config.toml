@@ -29,6 +29,11 @@ theme = "hugo-blog-awesome"
     url = '/bio/'
     weight = 40
 
+[markup]
+  [markup.highlight]
+    style = "github-dark"
+    noClasses = true
+
 [[params.socialIcons]]
 name = "github"
 url = "https://github.com/omegazyadav"
