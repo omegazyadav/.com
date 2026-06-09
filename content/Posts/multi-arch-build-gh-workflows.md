@@ -1,5 +1,5 @@
 ---
-title: "Multi-Arch Build with GitHub Workflows"
+title: "Multi-Arch Docker Build with GitHub Actions"
 date: 2026-05-20
 author: Yadav Lamichhane
 description: "Setup GitHub Actions workflow for building and pushing multi-architecture Docker images"
@@ -7,7 +7,7 @@ tags:
   - gh
 ---
 
-<img width="1097" height="624" alt="Screenshot 2026-05-20 at 09 46 17" src="https://github.com/user-attachments/assets/3936e0e8-a440-4cfd-b562-6c39b11ef79c" />
+![Multi-Arch Docker Build](https://i.imgur.com/4vQXlq8.png)
 
 Our platform has background jobs that runs across a mix of architectures — AMD64 for traditional cloud instances and ARM64 for AWS Graviton-based nodes. Rather than maintaining separate pipelines or Dockerfiles per architecture, we built a single GitHub Actions workflow that automatically builds, pushes, and merges multi-platform Docker images into one unified manifest.
 
