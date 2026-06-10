@@ -174,7 +174,7 @@ The complete working example from this post is available on [GitHub](https://git
 
 The change is not dramatic in terms of workflow complexity — you're splitting one job into
 two and adding a merge step. But the payoff in build time is significant. If your team is
-pushing to main frequently or running builds on every PR, shaving 10+ minutes per run adds
+pushing to main frequently or running builds on every PR, saving 10+ minutes per run adds
 up fast.
 
 Give the native approach a try — your team will notice the difference.
