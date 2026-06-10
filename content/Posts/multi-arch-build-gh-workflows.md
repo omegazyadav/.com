@@ -9,129 +9,174 @@ tags:
 
 ![Multi-Arch Docker Build](https://i.imgur.com/4vQXlq8.png)
 
-Our platform has background jobs that runs across a mix of architectures — AMD64 for traditional cloud instances and ARM64 for AWS Graviton-based nodes. Rather than maintaining separate pipelines or Dockerfiles per architecture, we built a single GitHub Actions workflow that automatically builds, pushes, and merges multi-platform Docker images into one unified manifest.
+If you've ever built a multi-arch Docker image using QEMU emulation on GitHub Actions and
+watched the clock tick past 15 minutes, you already know the pain. In this post, I'll walk
+through how switching to native runners cut our build times dramatically — and what the
+workflow looks like in practice.
 
-When you push a Docker image tagged `my-image:latest`, that image is built for one specific CPU architecture. If your AMD64-built image lands on an ARM64 node (like a Graviton EC2 or an Apple Silicon), it either fails to run or runs through emulation — which is slow and unreliable in production.
+## The Problem with QEMU
 
-The clean solution is a **multi-arch manifest** — a single image tag that points to the right architecture-specific image depending on where it's being pulled.
+QEMU is the go-to approach for building multi-arch images on a single runner. You set up the
+emulator, point Buildx at it, and in one job you get both `linux/amd64` and `linux/arm64`
+images. Simple — but slow.
 
-## Our Setup at a Glance
+The reason is fundamental: QEMU emulates the target CPU in software. Every ARM instruction
+your build executes is translated on the fly by the x86 host. For a Go binary this might be
+tolerable, but for anything with native dependencies — CGo, Python packages with C extensions,
+or heavy layer operations — the overhead is brutal.
 
-```
-jobs/
-├── job-a/
-│   └── Dockerfile
-├── job-b/
-│   └── Dockerfile
-└── job-c/
-    └── Dockerfile
-```
-
-We have multiple jobs, each with its own Dockerfile under the `jobs/` directory. The pipeline:
-
-1. **Discovers** all jobs dynamically
-2. **Builds** each job for both `amd64` and `arm64` in parallel — on native runners
-3. **Pushes** arch-specific tags to AWS ECR
-4. **Merges** them into a single multi-platform manifest
-
-
-## Dynamically Discover Jobs
-
-Instead of hardcoding job names, we auto-discover any directory under `jobs/` that contains a Dockerfile:
+Here's what the single-job QEMU workflow snippets looks like:
 
 ```yaml
-- id: set-matrix
-  run: |
-    JOBS=$(find jobs -mindepth 1 -maxdepth 1 -type d \
-      -exec test -e "{}/Dockerfile" ';' -print \
-      | jq -R -s -c 'split("\n")[:-1]')
-    echo "matrix=$JOBS" >> $GITHUB_OUTPUT
+name: Build and Push Multi-Arch Docker Image
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    # ... rest of the steps
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 ```
 
-This outputs a JSON array like `["jobs/job-a", "jobs/job-b"]` which feeds directly into the build matrix. Adding a new job is as simple as creating a new folder — no pipeline changes needed.
+Clean and minimal — but when your arm64 build is emulated on an amd64 runner, expect it to
+run **3–5x slower** than a native build. A build that takes 3 minutes natively can easily
+stretch to 12–15 minutes under QEMU.
 
-## Step 3: Build on Native Runners — Not Emulation
+Here's what a QEMU-emulated arm64 build looks like in practice — notice the build duration:
 
-This is the most important architectural decision. Many guides use QEMU emulation to build ARM images on AMD64 runners. It works, but it's significantly slower — sometimes 5–10x — for compute-heavy builds.
+![QEMU Build Time](https://i.imgur.com/zFtIaZe.png)
 
-Instead, we use **native runners for each architecture**:
+## The Native Approach: Parallel Jobs + Manifest Merge
+
+The fix is straightforward: build each architecture on its own native runner in parallel, then
+merge the two images into a single multi-arch manifest.
 
 ```yaml
-matrix:
-  config:
-    - platform: linux/amd64
-      runner: ubuntu-latest       # Standard GitHub AMD64 runner
-      arch: amd64
-    - platform: linux/arm64
-      runner: ubuntu-24.04-arm    # GitHub's native ARM64 runner
-      arch: arm64
+name: Build and Push Multi-Arch Docker Image
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  # Builds natively on an x86 runner
+  build-amd64:
+    # ... rest of the steps
+      - name: Build and push amd64
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}-amd64
+          cache-from: type=gha,scope=amd64
+          cache-to: type=gha,mode=max,scope=amd64
+
+  # Builds natively on an ARM runner — no emulation
+  build-arm64:
+     # ... rest of the steps
+      - name: Build and push arm64
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/arm64
+          push: true
+          tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}-arm64
+          cache-from: type=gha,scope=arm64
+          cache-to: type=gha,mode=max,scope=arm64
+
+  merge-manifests:
+        # ... rest of the steps
+      - name: Create and push multi-arch manifest
+        run: |
+          docker buildx imagetools create \
+            -t ${{ env.IMAGE_NAME }}:${{ github.sha }} \
+            -t ${{ env.IMAGE_NAME }}:latest \
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}-amd64 \
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}-arm64
 ```
 
-Each job in the matrix runs on hardware that matches its target platform. The build is fast, native, and deterministic.
-
-The build step pushes arch-specific tags:
-
-```bash
-docker buildx build \
-  --platform linux/arm64 \
-  -t <ecr>/<job>:<tag>-arm64 \
-  --push \
-  -f jobs/job-a/Dockerfile \
-  .
-```
-
-This results in two images per job per tag:
-- `<ecr>/jobs/job-a:abc1234-amd64`
-- `<ecr>/jobs/job-a:abc1234-arm64`
-
-## Merge into a Single Multi-Platform Manifest
-
-Once both arch builds are pushed, we merge them into a single tag using `docker buildx imagetools`:
-
-```bash
-docker buildx imagetools create \
-  -t ${ECR_PREFIX}/${job}:${IMAGE_TAG} \
-  ${ECR_PREFIX}/${job}:${IMAGE_TAG}-amd64 \
-  ${ECR_PREFIX}/${job}:${IMAGE_TAG}-arm64
-```
-
-Now when Kubernetes (or any container runtime) pulls `<ecr>/jobs/job-a:abc1234`, Docker automatically selects the right image for the node's architecture. No manual intervention. No separate tags in your Helm charts or manifests.
-
-
-## The Full Pipeline Flow
+The flow looks like this:
 
 ```
-Push to master / tag
-        │
-        ▼
-┌─────────────────┐
-│  Discover Jobs  │  → finds all Dockerfiles dynamically
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  Setup Config   │  → resolves ECR target, image tag, IAM role
-└────────┬────────┘
-         │
-         ▼
-┌──────────────────────────────────────────┐
-│           Build Matrix (parallel)         │
-│                                          │
-│  job-a / amd64   job-a / arm64           │
-│  job-b / amd64   job-b / arm64      ...  │
-│                                          │
-│  (native runners — no emulation)         │
-└──────────────────────┬───────────────────┘
-                       │
-                       ▼
-┌──────────────────────────────────────────┐
-│         Merge Manifests (per job)         │
-│                                          │
-│  amd64 image + arm64 image               │
-│         → single multi-arch tag          │
-└──────────────────────────────────────────┘
+build-amd64 (ubuntu-latest)       ──┐
+                                    ├──► merge-manifests──► image:latest
+build-arm64 (ubuntu-linux-arm64)  ──┘
 ```
 
----
+And here's how it looks in the GitHub Actions UI — both architecture builds running in parallel:
 
-Multi-arch builds don't have to be complicated. With GitHub's native ARM runners and `docker buildx imagetools`, you get fast, clean, production-grade images for both AMD64 and ARM64 — with a single tag your infrastructure can rely on.
+![Parallel Native Builds](https://i.imgur.com/oR7QAzr.png)
+
+Once both jobs complete, the manifest merge job ties them together:
+
+![Manifest Merge Job](https://i.imgur.com/QDml41C.png)
+
+## Build Time Comparison
+
+| Approach | amd64 build | arm64 build |
+|---|---|---|
+| QEMU (single job) | ~43 sec | ~5 min (emulated) |
+| Native (parallel jobs) | ~43 sec | ~48 sec (native) |
+
+The arm64 build under QEMU is the bottleneck. Running it natively on an ARM runner eliminates
+the emulation overhead entirely, and since both jobs run in parallel, the overall pipeline time
+drops to just over the time of a single native build plus the manifest merge (under a minute).
+
+## Setting Up a Native ARM Runner on GitHub
+
+GitHub now provides hosted `linux/arm64` runners for public and private repositories on paid plans. To enable them:
+
+1. Navigate to your organization **Settings** → **Actions** → **Runners**.
+2. Click **New runner** → **New GitHub-hosted runner**.
+3. Configure the runner:
+   - **Name:** `ubuntu-linux-arm64` (or any label you prefer)
+   - **Image:** Ubuntu latest
+   - **Architecture:** `arm64`
+   - **Size:** Choose based on your build needs (e.g., 4-core)
+4. Save the runner group and grant access to the desired repositories.
+
+Then reference the label in your workflow:
+
+```yaml
+build-arm64:
+  runs-on: ubuntu-linux-arm64
+  steps:
+    - uses: actions/checkout@v4
+    # ... rest of the steps
+```
+
+## When to Still Use QEMU
+
+Native runners are not always available or free. QEMU still makes sense when your images are
+small and build fast, your CI provider doesn't offer ARM runners, or you're prototyping and
+want a simple single-job setup.
+
+For production workloads or anything with a meaningful build time, native runners pay for
+themselves quickly in developer time saved.
+
+## Try It Yourself
+
+The complete working example from this post is available on [GitHub](https://github.com/cloudhonk/multi-arch-build)
+. Feel free to clone it, run the workflows, and experiment with your own images:
+
+## Wrapping Up
+
+The change is not dramatic in terms of workflow complexity — you're splitting one job into
+two and adding a merge step. But the payoff in build time is significant. If your team is
+pushing to main frequently or running builds on every PR, shaving 10+ minutes per run adds
+up fast.
+
+Give the native approach a try — your team will notice the difference.
