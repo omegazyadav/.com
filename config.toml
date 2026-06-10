@@ -1,5 +1,5 @@
 baseURL = 'https://omegazyadav.com/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = 'Yadav Lamichhane'
 theme = "hugo-blog-awesome"
 
