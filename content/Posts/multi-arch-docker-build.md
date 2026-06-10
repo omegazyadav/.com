@@ -6,13 +6,12 @@ description: "Setup GitHub Actions workflow for building and pushing multi-archi
 tags:
   - gh, docker, ci/cd
 ---
-
-![Multi-Arch Docker Build](https://i.imgur.com/4vQXlq8.png)
-
 If you've ever built a multi-arch Docker image using QEMU emulation on GitHub Actions and
 watched the clock tick past 15 minutes, you already know the pain. In this post, I'll walk
 through how switching to native runners cut our build times dramatically — and what the
 workflow looks like in practice.
+
+![Multi-Arch Docker Build](https://i.imgur.com/4vQXlq8.png)
 
 ## The Problem with QEMU
 
