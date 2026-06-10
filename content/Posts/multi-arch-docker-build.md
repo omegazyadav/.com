@@ -171,7 +171,7 @@ The complete working example from this post is available on [GitHub](https://git
 
 ## Wrapping Up
 
-The change is not dramatic in terms of workflow complexity, here we're splitting one job into
-two and adding a merge step. But the payoff in build time is significant. If the team is
+The change is not significant in terms of workflow complexity, here we're splitting one job into
+two and adding a merge step, but the payoff in overall build time. If the team is
 pushing to main frequently or running builds on every PR, saving 10+ minutes per run adds
-up fast which can make actual difference in the team.
+up fast which can make actual difference in the team productivity.
