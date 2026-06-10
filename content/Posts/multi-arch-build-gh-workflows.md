@@ -4,7 +4,7 @@ date: 2026-05-20
 author: Yadav Lamichhane
 description: "Setup GitHub Actions workflow for building and pushing multi-architecture Docker images"
 tags:
-  - gh
+  - gh, docker, ci/cd
 ---
 
 ![Multi-Arch Docker Build](https://i.imgur.com/4vQXlq8.png)
