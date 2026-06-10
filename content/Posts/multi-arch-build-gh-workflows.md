@@ -120,9 +120,7 @@ And here's how it looks in the GitHub Actions UI — both architecture builds ru
 
 ![Parallel Native Builds](https://i.imgur.com/oR7QAzr.png)
 
-Once both jobs complete, the manifest merge job ties them together:
-
-![Manifest Merge Job](https://i.imgur.com/QDml41C.png)
+Once both jobs complete, the manifest merge job ties them together.
 
 ## Build Time Comparison
 
