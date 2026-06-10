@@ -169,7 +169,7 @@ themselves quickly in developer time saved.
 
 ## Try It Yourself
 
-The complete working example from this post is available on [GitHub](https://github.com/cloudhonk/multi-arch-build)
+The complete working example from this post is available on [GitHub](https://github.com/coderzplayground/multi-arch-build)
 . Feel free to clone it, run the workflows, and experiment with your own images:
 
 ## Wrapping Up
