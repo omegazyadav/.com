@@ -6,7 +6,7 @@ description: "Setup GitHub Actions workflow for building and pushing multi-archi
 tags:
   - gh, docker, ci/cd
 ---
-In our workspace we have multiple background jobs with its own Dockerfile and business logic code with multiple dependencies. We built a github actions which builds the jobs based on the CI triggers and generate image supporting both the architecture `arm64/amd64`. For this job to pass, developer had to wait for 20+ minutes  which wasn't efficient for developer productivity.
+In my workplace we have multiple background jobs with its own Dockerfile and business logic code with multiple dependencies. We built a github actions which builds the jobs based on the CI triggers and generate image supporting both the architecture `arm64/amd64`. For this job to pass, developer had to wait for 20+ minutes  which wasn't efficient for developer productivity.
 
 ![Multi-Arch Docker Build](https://i.imgur.com/4vQXlq8.png)
 
@@ -174,4 +174,4 @@ The complete working example from this post is available on [GitHub](https://git
 The change is not significant in terms of workflow complexity, here we're splitting one job into
 two and adding a merge step, but the payoff in overall build time. If the team is
 pushing to main frequently or running builds on every PR, saving 10+ minutes per run adds
-up fast which can make actual difference in the team productivity.
+up fast which can make actual difference to the team.
