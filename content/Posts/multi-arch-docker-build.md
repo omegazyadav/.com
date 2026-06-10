@@ -6,7 +6,7 @@ description: "Setup GitHub Actions workflow for building and pushing multi-archi
 tags:
   - gh, docker, ci/cd
 ---
-In our workspace we have multiple background jobs with its own Dockerfile and business logic code with multiple dependencies. We built a github actions which builds the jobs based on the CI triggers and generate image supporting both the architecture `arm64/amd64`. For this job to pass, developer had to wait for 20+ minutes  which wansn't efficient for developer productivity. 
+In our workspace we have multiple background jobs with its own Dockerfile and business logic code with multiple dependencies. We built a github actions which builds the jobs based on the CI triggers and generate image supporting both the architecture `arm64/amd64`. For this job to pass, developer had to wait for 20+ minutes  which wasn't efficient for developer productivity.
 
 ![Multi-Arch Docker Build](https://i.imgur.com/4vQXlq8.png)
 
